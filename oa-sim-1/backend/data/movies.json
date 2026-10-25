@@ -1,0 +1,227 @@
+[
+  {
+    "title": "The Shawshank Redemption",
+    "director": "Frank Darabont",
+    "releaseYear": 1994,
+    "genres": ["Drama"],
+    "rating": 9.3,
+    "runtime": 142,
+    "synopsis": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
+  },
+  {
+    "title": "The Dark Knight",
+    "director": "Christopher Nolan",
+    "releaseYear": 2008,
+    "genres": ["Action", "Crime", "Drama"],
+    "rating": 9.0,
+    "runtime": 152,
+    "synopsis": "Batman faces the Joker, a criminal mastermind who wants to plunge Gotham City into anarchy."
+  },
+  {
+    "title": "Pulp Fiction",
+    "director": "Quentin Tarantino",
+    "releaseYear": 1994,
+    "genres": ["Crime", "Drama"],
+    "rating": 8.9,
+    "runtime": 154,
+    "synopsis": "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence and redemption."
+  },
+  {
+    "title": "Inception",
+    "director": "Christopher Nolan",
+    "releaseYear": 2010,
+    "genres": ["Action", "Sci-Fi", "Thriller"],
+    "rating": 8.8,
+    "runtime": 148,
+    "synopsis": "A thief who steals corporate secrets through dream-sharing technology is given the task of planting an idea."
+  },
+  {
+    "title": "The Matrix",
+    "director": "Lana Wachowski",
+    "releaseYear": 1999,
+    "genres": ["Action", "Sci-Fi"],
+    "rating": 8.7,
+    "runtime": 136,
+    "synopsis": "A computer hacker learns the true nature of his reality and his role in the war against its controllers."
+  },
+  {
+    "title": "Interstellar",
+    "director": "Christopher Nolan",
+    "releaseYear": 2014,
+    "genres": ["Adventure", "Drama", "Sci-Fi"],
+    "rating": 8.7,
+    "runtime": 169,
+    "synopsis": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
+  },
+  {
+    "title": "Spirited Away",
+    "director": "Hayao Miyazaki",
+    "releaseYear": 2001,
+    "genres": ["Animation", "Adventure", "Fantasy"],
+    "rating": 8.6,
+    "runtime": 125,
+    "synopsis": "A young girl wanders into a world ruled by gods, witches and spirits, where humans are changed into beasts."
+  },
+  {
+    "title": "Whiplash",
+    "director": "Damien Chazelle",
+    "releaseYear": 2014,
+    "genres": ["Drama"],
+    "rating": 8.5,
+    "runtime": 106,
+    "synopsis": "A promising young drummer enrolls at a cut-throat music conservatory under a ruthless instructor."
+  },
+  {
+    "title": "Parasite",
+    "director": "Bong Joon Ho",
+    "releaseYear": 2019,
+    "genres": ["Drama", "Thriller"],
+    "rating": 8.5,
+    "runtime": 132,
+    "synopsis": "Greed and class discrimination threaten the newly formed relationship between a wealthy family and a destitute one."
+  },
+  {
+    "title": "The Shining",
+    "director": "Stanley Kubrick",
+    "releaseYear": 1980,
+    "genres": ["Drama", "Horror"],
+    "rating": 8.4,
+    "runtime": 146,
+    "synopsis": "A family heads to an isolated hotel for the winter where a sinister presence influences the father."
+  },
+  {
+    "title": "Toy Story",
+    "director": "John Lasseter",
+    "releaseYear": 1995,
+    "genres": ["Animation", "Adventure", "Comedy"],
+    "rating": 8.3,
+    "runtime": 81,
+    "synopsis": "A cowboy doll is profoundly threatened when a new spaceman action figure supplants him as top toy."
+  },
+  {
+    "title": "Mad Max: Fury Road",
+    "director": "George Miller",
+    "releaseYear": 2015,
+    "genres": ["Action", "Adventure", "Sci-Fi"],
+    "rating": 8.1,
+    "runtime": 120,
+    "synopsis": "In a post-apocalyptic wasteland, a woman rebels against a tyrannical ruler in search of her homeland."
+  },
+  {
+    "title": "The Grand Budapest Hotel",
+    "director": "Wes Anderson",
+    "releaseYear": 2014,
+    "genres": ["Adventure", "Comedy", "Crime"],
+    "rating": 8.1,
+    "runtime": 99,
+    "synopsis": "A legendary concierge and his protégé become embroiled in the theft of a priceless painting."
+  },
+  {
+    "title": "La La Land",
+    "director": "Damien Chazelle",
+    "releaseYear": 2016,
+    "genres": ["Comedy", "Drama", "Romance"],
+    "rating": 8.0,
+    "runtime": 128,
+    "synopsis": "A jazz pianist falls for an aspiring actress in Los Angeles while both chase their dreams."
+  },
+  {
+    "title": "Blade Runner 2049",
+    "director": "Denis Villeneuve",
+    "releaseYear": 2017,
+    "genres": ["Action", "Drama", "Sci-Fi"],
+    "rating": 8.0,
+    "runtime": 164,
+    "synopsis": "A young blade runner's discovery of a long-buried secret leads him to track down a former blade runner."
+  },
+  {
+    "title": "Arrival",
+    "director": "Denis Villeneuve",
+    "releaseYear": 2016,
+    "genres": ["Drama", "Sci-Fi"],
+    "rating": 7.9,
+    "runtime": 116,
+    "synopsis": "A linguist works with the military to communicate with alien lifeforms after twelve spacecraft appear."
+  },
+  {
+    "title": "Knives Out",
+    "director": "Rian Johnson",
+    "releaseYear": 2019,
+    "genres": ["Comedy", "Crime", "Drama"],
+    "rating": 7.9,
+    "runtime": 130,
+    "synopsis": "A detective investigates the death of the patriarch of an eccentric, combative family."
+  },
+  {
+    "title": "Edge of Tomorrow",
+    "director": "Doug Liman",
+    "releaseYear": 2014,
+    "genres": ["Action", "Sci-Fi"],
+    "rating": 7.9,
+    "runtime": 113,
+    "synopsis": "A soldier fighting aliens gets to relive the same day over and over again."
+  },
+  {
+    "title": "Get Out",
+    "director": "Jordan Peele",
+    "releaseYear": 2017,
+    "genres": ["Horror", "Thriller"],
+    "rating": 7.8,
+    "runtime": 104,
+    "synopsis": "A young man visits his girlfriend's family estate, where unsettling discoveries await."
+  },
+  {
+    "title": "Ex Machina",
+    "director": "Alex Garland",
+    "releaseYear": 2014,
+    "genres": ["Drama", "Sci-Fi", "Thriller"],
+    "rating": 7.7,
+    "runtime": 108,
+    "synopsis": "A programmer is selected to evaluate the human qualities of a highly advanced humanoid A.I."
+  },
+  {
+    "title": "Gravity",
+    "director": "Alfonso Cuarón",
+    "releaseYear": 2013,
+    "genres": ["Drama", "Sci-Fi", "Thriller"],
+    "rating": 7.7,
+    "runtime": 91,
+    "synopsis": "Two astronauts work together to survive after an accident leaves them stranded in space."
+  },
+  {
+    "title": "Dark City",
+    "director": "Alex Proyas",
+    "releaseYear": 1998,
+    "genres": ["Sci-Fi", "Thriller"],
+    "rating": 7.6,
+    "runtime": 100,
+    "synopsis": "A man struggles with memories of his past in a dark world ruled by beings who can alter reality."
+  },
+  {
+    "title": "Minority Report",
+    "director": "Steven Spielberg",
+    "releaseYear": 2002,
+    "genres": ["Action", "Crime", "Sci-Fi"],
+    "rating": 7.6,
+    "runtime": 145,
+    "synopsis": "In a future where criminals are arrested before the crime occurs, a cop is accused of a future murder."
+  },
+  {
+    "title": "Darkest Hour",
+    "director": "Joe Wright",
+    "releaseYear": 2017,
+    "genres": ["Drama"],
+    "rating": 7.4,
+    "runtime": 125,
+    "synopsis": "During the early days of World War II, Winston Churchill must decide whether to negotiate with Hitler."
+  },
+  {
+    "title": "Zero Dark Thirty",
+    "director": "Kathryn Bigelow",
+    "releaseYear": 2012,
+    "genres": ["Drama", "Thriller"],
+    "rating": 7.4,
+    "runtime": 157,
+    "synopsis": "A chronicle of the decade-long hunt for al-Qaeda terrorist leader Osama bin Laden."
+  }
+]
