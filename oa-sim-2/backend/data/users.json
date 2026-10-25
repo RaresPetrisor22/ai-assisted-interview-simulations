@@ -1,0 +1,117 @@
+[
+  {
+    "_id": "64a000000000000000000001",
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "role": "buyer",
+    "wishlist": [
+      {
+        "car": "65b000000000000000000002",
+        "note": "Low mileage, check service history",
+        "addedAt": "2026-03-01T10:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000005",
+        "note": null,
+        "addedAt": "2026-05-10T09:30:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000009",
+        "note": "Compare with RAV4",
+        "addedAt": "2026-04-02T18:15:00.000Z"
+      }
+    ]
+  },
+  {
+    "_id": "64a000000000000000000002",
+    "name": "Bob Smith",
+    "email": "bob@example.com",
+    "role": "buyer",
+    "wishlist": [
+      {
+        "car": "65b000000000000000000003",
+        "note": "Ask about financing",
+        "addedAt": "2026-02-14T12:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "_id": "64a000000000000000000003",
+    "name": "Dana Lee",
+    "email": "dana@example.com",
+    "role": "buyer",
+    "wishlist": [
+      {
+        "car": "65b000000000000000000001",
+        "note": null,
+        "addedAt": "2026-01-01T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000002",
+        "note": null,
+        "addedAt": "2026-01-02T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000003",
+        "note": null,
+        "addedAt": "2026-01-03T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000004",
+        "note": null,
+        "addedAt": "2026-01-04T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000005",
+        "note": null,
+        "addedAt": "2026-01-05T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000006",
+        "note": null,
+        "addedAt": "2026-01-06T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000007",
+        "note": null,
+        "addedAt": "2026-01-07T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000008",
+        "note": null,
+        "addedAt": "2026-01-08T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000009",
+        "note": null,
+        "addedAt": "2026-01-09T08:00:00.000Z"
+      },
+      {
+        "car": "65b000000000000000000010",
+        "note": null,
+        "addedAt": "2026-01-10T08:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "_id": "64a000000000000000000004",
+    "name": "Carlos Diaz",
+    "email": "carlos@example.com",
+    "role": "buyer",
+    "wishlist": []
+  },
+  {
+    "_id": "64a000000000000000000005",
+    "name": "Evan Brooks",
+    "email": "evan@motors.example.com",
+    "role": "seller",
+    "wishlist": []
+  },
+  {
+    "_id": "64a000000000000000000006",
+    "name": "Fiona Chen",
+    "email": "fiona@motors.example.com",
+    "role": "seller",
+    "wishlist": []
+  }
+]
