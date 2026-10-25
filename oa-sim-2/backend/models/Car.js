@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 import {
   BODY_TYPES,
   CAR_SORT_OPTIONS,
   CAR_STATUSES,
   DEFAULT_PAGE_SIZE,
   FUEL_TYPES,
-} from '../config/constants.js';
-import { escapeRegex } from '../utils/validators.js';
+} from "../config/constants.js";
+import { escapeRegex } from "../utils/validators.js";
 
 const carSchema = new mongoose.Schema(
   {
@@ -19,24 +19,29 @@ const carSchema = new mongoose.Schema(
     bodyType: { type: String, enum: BODY_TYPES, required: true },
     color: { type: String, trim: true },
     location: { type: String, trim: true },
-    status: { type: String, enum: CAR_STATUSES, default: 'available' },
-    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    status: { type: String, enum: CAR_STATUSES, default: "available" },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 carSchema.index({ make: 1, model: 1 });
 carSchema.index({ price: 1 });
 
 carSchema.methods.isAvailable = function () {
-  return this.status !== 'sold';
+  return this.status !== "sold" && this.status !== "pending";
 };
 
 carSchema.statics.buildFilter = function (filters = {}) {
-  const { make, fuelType, bodyType, status, minPrice, maxPrice, minYear } = filters;
+  const { make, fuelType, bodyType, status, minPrice, maxPrice, minYear } =
+    filters;
   const query = {};
 
-  if (make) query.make = new RegExp(`^${escapeRegex(make)}$`, 'i');
+  if (make) query.make = new RegExp(`^${escapeRegex(make)}$`, "i");
   if (fuelType) query.fuelType = fuelType;
   if (bodyType) query.bodyType = bodyType;
   if (status) query.status = status;
@@ -53,7 +58,7 @@ carSchema.statics.buildFilter = function (filters = {}) {
 
 carSchema.statics.findAll = async function (
   filters = {},
-  { page = 1, limit = DEFAULT_PAGE_SIZE, sort } = {}
+  { page = 1, limit = DEFAULT_PAGE_SIZE, sort } = {},
 ) {
   const query = this.buildFilter(filters);
   const order = CAR_SORT_OPTIONS[sort] ?? { _id: 1 };
@@ -73,6 +78,6 @@ carSchema.statics.findBySeller = function (sellerId) {
   return this.find({ seller: sellerId }).sort({ createdAt: -1, _id: 1 });
 };
 
-const Car = mongoose.model('Car', carSchema);
+const Car = mongoose.model("Car", carSchema);
 
 export default Car;

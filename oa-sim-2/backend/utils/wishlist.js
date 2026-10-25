@@ -19,5 +19,5 @@ export function formatWishlist(entries) {
   return entries
     .filter((entry) => entry.car)
     .map((entry) => toWishlistItem(entry.car, entry))
-    .sort((a, b) => a.addedAt - b.addedAt);
+    .sort((a, b) => b.addedAt - a.addedAt);
 }
