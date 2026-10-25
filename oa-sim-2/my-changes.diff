@@ -1,0 +1,284 @@
+diff --git a/oa-sim-2/backend/controllers/wishlistController.js b/oa-sim-2/backend/controllers/wishlistController.js
+index b12141c..8c25262 100644
+--- a/oa-sim-2/backend/controllers/wishlistController.js
++++ b/oa-sim-2/backend/controllers/wishlistController.js
+@@ -1,7 +1,7 @@
+-import { NOTE_MAX_LENGTH, WISHLIST_LIMIT } from '../config/constants.js';
+-import Car from '../models/Car.js';
+-import User from '../models/User.js';
+-import { formatWishlist, toWishlistItem } from '../utils/wishlist.js';
++import { NOTE_MAX_LENGTH, WISHLIST_LIMIT } from "../config/constants.js";
++import Car from "../models/Car.js";
++import User from "../models/User.js";
++import { formatWishlist, toWishlistItem } from "../utils/wishlist.js";
+ 
+ export async function getWishlist(req, res) {
+   const user = await User.findWithWishlist(req.user._id);
+@@ -13,40 +13,43 @@ export async function getWishlist(req, res) {
+ export async function addToWishlist(req, res) {
+   const { carId, note = null } = req.body;
+ 
+-  if (note !== null && (typeof note !== 'string' || note.length > NOTE_MAX_LENGTH)) {
+-    return res
+-      .status(400)
+-      .json({ message: `Note must be a string of at most ${NOTE_MAX_LENGTH} characters` });
++  if (
++    note !== null &&
++    (typeof note !== "string" || note.length > NOTE_MAX_LENGTH)
++  ) {
++    return res.status(400).json({
++      message: `Note must be a string of at most ${NOTE_MAX_LENGTH} characters`,
++    });
+   }
+ 
+   const car = await Car.findById(carId);
+   if (!car) {
+-    return res.status(404).json({ message: 'Car not found' });
++    return res.status(404).json({ message: "Car not found" });
+   }
+ 
+   if (!car.isAvailable()) {
+-    return res.status(400).json({ message: 'Car is no longer available' });
++    return res.status(400).json({ message: "Car is no longer available" });
+   }
+ 
+   const user = req.user;
+ 
+   if (user.hasInWishlist(car._id)) {
+-    return res.status(409).json({ message: 'Car is already in your wishlist' });
++    return res.status(409).json({ message: "Car is already in your wishlist" });
+   }
+ 
+   if (user.isWishlistFull()) {
+-    return res
+-      .status(400)
+-      .json({ message: `Wishlist cannot contain more than ${WISHLIST_LIMIT} cars` });
++    return res.status(400).json({
++      message: `Wishlist cannot contain more than ${WISHLIST_LIMIT} cars`,
++    });
+   }
+ 
+-  user.wishlist.push({ carId: car._id, note, addedAt: new Date() });
++  user.wishlist.push({ car: car._id, note, addedAt: new Date() });
+   await user.save();
+ 
+   const entry = user.wishlist[user.wishlist.length - 1];
+ 
+   res.status(201).json({
+-    message: 'Car added to wishlist',
++    message: "Car added to wishlist",
+     item: toWishlistItem(car, entry),
+   });
+ }
+@@ -55,10 +58,13 @@ export async function removeFromWishlist(req, res) {
+   const { carId } = req.params;
+ 
+   if (!req.user.hasInWishlist(carId)) {
+-    return res.status(404).json({ message: 'Car not found in wishlist' });
++    return res.status(404).json({ message: "Car not found in wishlist" });
+   }
+ 
+-  User.updateOne({ _id: req.user._id }, { $pull: { wishlist: { car: carId } } });
++  await User.updateOne(
++    { _id: req.user._id },
++    { $pull: { wishlist: { car: carId } } },
++  );
+ 
+-  res.status(200).json({ message: 'Car removed from wishlist', carId });
++  res.status(200).json({ message: "Car removed from wishlist", carId });
+ }
+diff --git a/oa-sim-2/backend/models/Car.js b/oa-sim-2/backend/models/Car.js
+index ddad9ad..221f7c9 100644
+--- a/oa-sim-2/backend/models/Car.js
++++ b/oa-sim-2/backend/models/Car.js
+@@ -1,12 +1,12 @@
+-import mongoose from 'mongoose';
++import mongoose from "mongoose";
+ import {
+   BODY_TYPES,
+   CAR_SORT_OPTIONS,
+   CAR_STATUSES,
+   DEFAULT_PAGE_SIZE,
+   FUEL_TYPES,
+-} from '../config/constants.js';
+-import { escapeRegex } from '../utils/validators.js';
++} from "../config/constants.js";
++import { escapeRegex } from "../utils/validators.js";
+ 
+ const carSchema = new mongoose.Schema(
+   {
+@@ -19,24 +19,29 @@ const carSchema = new mongoose.Schema(
+     bodyType: { type: String, enum: BODY_TYPES, required: true },
+     color: { type: String, trim: true },
+     location: { type: String, trim: true },
+-    status: { type: String, enum: CAR_STATUSES, default: 'available' },
+-    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
++    status: { type: String, enum: CAR_STATUSES, default: "available" },
++    seller: {
++      type: mongoose.Schema.Types.ObjectId,
++      ref: "User",
++      required: true,
++    },
+   },
+-  { timestamps: true }
++  { timestamps: true },
+ );
+ 
+ carSchema.index({ make: 1, model: 1 });
+ carSchema.index({ price: 1 });
+ 
+ carSchema.methods.isAvailable = function () {
+-  return this.status !== 'sold';
++  return this.status !== "sold" && this.status !== "pending";
+ };
+ 
+ carSchema.statics.buildFilter = function (filters = {}) {
+-  const { make, fuelType, bodyType, status, minPrice, maxPrice, minYear } = filters;
++  const { make, fuelType, bodyType, status, minPrice, maxPrice, minYear } =
++    filters;
+   const query = {};
+ 
+-  if (make) query.make = new RegExp(`^${escapeRegex(make)}$`, 'i');
++  if (make) query.make = new RegExp(`^${escapeRegex(make)}$`, "i");
+   if (fuelType) query.fuelType = fuelType;
+   if (bodyType) query.bodyType = bodyType;
+   if (status) query.status = status;
+@@ -53,7 +58,7 @@ carSchema.statics.buildFilter = function (filters = {}) {
+ 
+ carSchema.statics.findAll = async function (
+   filters = {},
+-  { page = 1, limit = DEFAULT_PAGE_SIZE, sort } = {}
++  { page = 1, limit = DEFAULT_PAGE_SIZE, sort } = {},
+ ) {
+   const query = this.buildFilter(filters);
+   const order = CAR_SORT_OPTIONS[sort] ?? { _id: 1 };
+@@ -73,6 +78,6 @@ carSchema.statics.findBySeller = function (sellerId) {
+   return this.find({ seller: sellerId }).sort({ createdAt: -1, _id: 1 });
+ };
+ 
+-const Car = mongoose.model('Car', carSchema);
++const Car = mongoose.model("Car", carSchema);
+ 
+ export default Car;
+diff --git a/oa-sim-2/backend/models/User.js b/oa-sim-2/backend/models/User.js
+index 058b5e4..53f3a65 100644
+--- a/oa-sim-2/backend/models/User.js
++++ b/oa-sim-2/backend/models/User.js
+@@ -1,23 +1,38 @@
+-import mongoose from 'mongoose';
+-import { NOTE_MAX_LENGTH, USER_ROLES, WISHLIST_LIMIT } from '../config/constants.js';
++import mongoose from "mongoose";
++import {
++  NOTE_MAX_LENGTH,
++  USER_ROLES,
++  WISHLIST_LIMIT,
++} from "../config/constants.js";
+ 
+ const wishlistItemSchema = new mongoose.Schema(
+   {
+-    car: { type: mongoose.Schema.Types.ObjectId, ref: 'Car', required: true },
+-    note: { type: String, trim: true, maxlength: NOTE_MAX_LENGTH, default: null },
++    car: { type: mongoose.Schema.Types.ObjectId, ref: "Car", required: true },
++    note: {
++      type: String,
++      trim: true,
++      maxlength: NOTE_MAX_LENGTH,
++      default: null,
++    },
+     addedAt: { type: Date, default: Date.now },
+   },
+-  { _id: false }
++  { _id: false },
+ );
+ 
+ const userSchema = new mongoose.Schema(
+   {
+     name: { type: String, required: true, trim: true },
+-    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+-    role: { type: String, enum: USER_ROLES, default: 'buyer' },
++    email: {
++      type: String,
++      required: true,
++      unique: true,
++      lowercase: true,
++      trim: true,
++    },
++    role: { type: String, enum: USER_ROLES, default: "buyer" },
+     wishlist: { type: [wishlistItemSchema], default: [] },
+   },
+-  { timestamps: true }
++  { timestamps: true },
+ );
+ 
+ userSchema.statics.findByEmail = function (email) {
+@@ -25,17 +40,17 @@ userSchema.statics.findByEmail = function (email) {
+ };
+ 
+ userSchema.statics.findWithWishlist = function (userId) {
+-  return this.findById(userId).populate('wishlist.car');
++  return this.findById(userId).populate("wishlist.car");
+ };
+ 
+ userSchema.methods.hasInWishlist = function (carId) {
+-  return this.wishlist.some((item) => item.car.toString() === carId);
++  return this.wishlist.some((item) => item.car.toString() === carId.toString());
+ };
+ 
+ userSchema.methods.isWishlistFull = function () {
+-  return this.wishlist.length > WISHLIST_LIMIT;
++  return this.wishlist.length >= WISHLIST_LIMIT;
+ };
+ 
+-const User = mongoose.model('User', userSchema);
++const User = mongoose.model("User", userSchema);
+ 
+ export default User;
+diff --git a/oa-sim-2/backend/routes/wishlistRoutes.js b/oa-sim-2/backend/routes/wishlistRoutes.js
+index 62c2475..535723f 100644
+--- a/oa-sim-2/backend/routes/wishlistRoutes.js
++++ b/oa-sim-2/backend/routes/wishlistRoutes.js
+@@ -1,18 +1,26 @@
+-import { Router } from 'express';
++import { Router } from "express";
+ import {
+   addToWishlist,
+   getWishlist,
+   removeFromWishlist,
+-} from '../controllers/wishlistController.js';
+-import { requireUser } from '../middleware/auth.js';
+-import { validateObjectId } from '../middleware/validateObjectId.js';
++} from "../controllers/wishlistController.js";
++import { requireUser } from "../middleware/auth.js";
++import { validateObjectId } from "../middleware/validateObjectId.js";
+ 
+ const router = Router();
+ 
+ router.use(requireUser);
+ 
+-router.get('/', getWishlist);
+-router.post('/', validateObjectId('body', 'carId', 'Invalid car id'), addToWishlist);
+-router.delete('/:carId', validateObjectId('params', 'carId', 'Invalid car id'), removeFromWishlist);
++router.get("/", getWishlist);
++router.post(
++  "/",
++  validateObjectId("body", "carId", "Invalid car id"),
++  addToWishlist,
++);
++router.delete(
++  "/:carId",
++  validateObjectId("params", "carId", "Invalid car id"),
++  removeFromWishlist,
++);
+ 
+ export default router;
+diff --git a/oa-sim-2/backend/utils/wishlist.js b/oa-sim-2/backend/utils/wishlist.js
+index 491d6a4..b02efcf 100644
+--- a/oa-sim-2/backend/utils/wishlist.js
++++ b/oa-sim-2/backend/utils/wishlist.js
+@@ -19,5 +19,5 @@ export function formatWishlist(entries) {
+   return entries
+     .filter((entry) => entry.car)
+     .map((entry) => toWishlistItem(entry.car, entry))
+-    .sort((a, b) => a.addedAt - b.addedAt);
++    .sort((a, b) => b.addedAt - a.addedAt);
+ }

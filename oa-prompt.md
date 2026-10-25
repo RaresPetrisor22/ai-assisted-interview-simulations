@@ -7,11 +7,10 @@ You are building a realistic practice replica of the Amazon SWE Intern online as
 
 ## 1. Scenario
 
-Use this scenario (do not pick a random one):
-
-Car marketplace (MERN): Wishlist. Users browse car listings and can add any car to their wishlist from the car's page, view their wishlist, and remove cars from it.
-
-User-facing symptom for the README Overview (write it in HackerRank's style): "Users are unable to add cars to their wishlist. Separately, when they remove a car, the API reports success but the car stays in the wishlist. Your task is to fix the wishlist backend."
+Pick ONE at random:
+A. Movie review platform: review moderation (a user is permanently flagged after 3 violations, whether consecutive on create, consecutive on update, or cumulative across both), inappropriate content blocked with 400 on create and on update, and a rate limit shared across POST + PUT (4 review operations per 1-minute window, then 429).
+B. Your own scenario at the same difficulty (cart/checkout, library loans, event booking with capacity, etc.).
+Difficulty: SWE intern. A strong candidate `should finish in about 60–70 minutes.
 
 Requirements:
 
